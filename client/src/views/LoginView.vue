@@ -1,6 +1,6 @@
 <script>
-import { mapActions, mapState } from "pinia";
-import { useCharacterStore } from "../stores/character";
+import { mapActions } from "pinia";
+import { useFacultyStore } from "../stores/faculty";
 
 export default {
   data() {
@@ -12,75 +12,84 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions(useCharacterStore, [
+    ...mapActions(useFacultyStore, [
       "loginHandler",
-      "handleCredentialResponse",
     ]),
-    callback() {
-      this.handleCredentialResponse();
-    },
   },
 };
 </script>
 
 <template>
-  <section class="text-center text-lg-start" id="login-section">
-    <div class="card mb-3">
-      <div class="row g-0 d-flex align-items-center">
-        <div class="col-lg-4 d-none d-lg-flex">
-          <img
-            :src="image"
-            class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5"
-          />
-        </div>
-        <div class="col-lg-8">
-          <div class="card-body py-5 px-md-5">
-            <form
-              id="login-form"
-              @submit.prevent="loginHandler({ email, password })"
-            >
-              <h6 class="h6 mb-3 display-5">Log in to your account</h6>
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <input
-                  type="email"
-                  id="login-email"
-                  class="form-control"
-                  v-model="email"
+  <section class="vh-100" style="background-color: #1e1e66">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card" style="border-radius: 1rem">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                  alt="login form"
+                  class="img-fluid"
+                  style="border-radius: 1rem 0 0 1rem"
                 />
-                <label class="form-label" for="login-email"
-                  >Email address</label
-                >
               </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <form @submit.prevent="loginHandler({ email, password })">
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
+                      Sign into your account
+                    </h5>
 
-              <!-- Password input -->
-              <div class="form-outline mb-4">
-                <input
-                  type="password"
-                  id="login-password"
-                  class="form-control"
-                  v-model="password"
-                />
-                <label class="form-label" for="login-password">Password</label>
+                    <div class="form-outline mb-4">
+                      <input
+                        type="email"
+                        id="login-email"
+                        v-model="email"
+                        class="form-control form-control-lg"
+                      />
+                      <label class="form-label" for="form2Example17"
+                        >Email address</label
+                      >
+                    </div>
+
+                    <div class="form-outline mb-4">
+                      <input
+                        type="password"
+                        id="login-password"
+                        v-model="password"
+                        class="form-control form-control-lg"
+                      />
+                      <label class="form-label" for="form2Example27"
+                        >Password</label
+                      >
+                    </div>
+
+                    <div class="pt-1 mb-4">
+                      <button
+                        class="btn btn-lg btn-primary rounded-pill w-100 p-2"
+                        type="submit"
+                      >
+                        Login
+                      </button>
+                    </div>
+
+                    <p class="mb-5 pb-lg-2" style="color: #393f81">
+                      Don't have an account?
+                      <router-link to="/register"
+                        ><button
+                          style="margin: 10px"
+                          type="button"
+                          class="btn btn-lg btn-primary rounded-pill w-100 p-2"
+                        >
+                          Register
+                        </button></router-link
+                      >
+                    </p>
+                  </form>
+                </div>
               </div>
-              <!-- Submit button -->
-              <button
-                style="margin: 10px"
-                type="submit"
-                class="btn btn-lg btn-primary rounded-pill w-100 p-2"
-              >
-                Sign in
-              </button>
-              <router-link to="/register"
-                ><button
-                  style="margin: 10px"
-                  type="button"
-                  class="btn btn-lg btn-primary rounded-pill w-100 p-2"
-                >
-                  Register
-                </button></router-link
-              >
-            </form>
+            </div>
           </div>
         </div>
       </div>

@@ -3,9 +3,11 @@ import { defineStore } from 'pinia'
 import Axios from 'axios'
 import Swal from 'sweetalert2'
 
-export const useCharacterStore = defineStore('character', {
+export const useFacultyStore = defineStore('faculty', {
   state: () => ({
-    characters: [],
+    incomes: [],
+    months: [],
+    values: "",
     currentPage: '',
     isLogin: false,
     qr: '',
@@ -14,25 +16,40 @@ export const useCharacterStore = defineStore('character', {
     // baseUrl: "https://rubah-kebon-production-95a1.up.railway.app"
   }),
   getters: {
-
+    getMonths: (state) => {
+      return Array.from(state.months);
+    },
+    getIncomes: (state) => {
+      return Array.from(state.incomes);
+    },
   },
   actions: {
-    // async fetchCharacters() {
-    //   try {
-    //     const { data } = await Axios({
-    //       url: this.baseUrl + '/characters',
-    //       method: 'GET',
-    //       headers: {
-    //         access_token: localStorage.getItem("access_token"),
-    //       }
-    //     })
-    //     console.log(data)
-    //     this.characters = data
-    //     this.currentPage = '/home'
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
+    async fetchIncomes() {
+      try {
+        const { data } = await Axios({
+          url: this.baseUrl + '/income',
+          method: 'GET',
+          headers: {
+            access_token: localStorage.getItem("access_token"),
+          }
+        });
+
+        let tempArrMonths = []
+        let tempArrIncomes = []
+        for (let i = 0; i < data.length; i++) {
+          const element = data[i];
+          tempArrMonths.push(element.month);
+          tempArrIncomes.push(element.value);
+        }
+        this.months = [...tempArrMonths]
+        this.incomes = [...tempArrIncomes]
+
+        this.currentPage = '/home';
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
 
     async loginHandler(login) {
       try {
@@ -45,12 +62,9 @@ export const useCharacterStore = defineStore('character', {
           }
         })
         localStorage.access_token = data.access_token
-        localStorage.userId = data.id
-        localStorage.profilePic = data.profilePic
         this.router.push('/home')
         this.isLogin = true
       } catch (err) {
-        console.log(err)
         Swal.fire({
           icon: "error",
           title: `${err.response.data.message}`,
@@ -59,7 +73,7 @@ export const useCharacterStore = defineStore('character', {
     },
     async registerHandler(register) {
       try {
-        let { data } = Axios({
+        let { data } = await Axios({
           url: this.baseUrl + "/users/register",
           method: "POST",
           data: {
@@ -68,21 +82,19 @@ export const useCharacterStore = defineStore('character', {
           },
         })
 
-        // console.log(data,"<<<<<<<<<<<<<<<<<,ini data cuy")
-        // Swal.fire({
-        //   position: "top-end",
-        //   icon: "success",
-        //   title: "Registration Success",
-        //   showConfirmButton: false,
-        //   timer: 1500,
-        // });
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Registration Success",
+            showConfirmButton: false,
+            timer: 1500,
+          });
 
-        // register.email = "";
-        // register.password = "";
-        // this.router.push('/login')
+          register.email = "";
+          register.password = "";
+          this.router.push('/login')
 
       } catch (err) {
-        console.log(err);
         Swal.fire({
           icon: "error",
           title: `${err.response.data.message}`,
@@ -95,8 +107,12 @@ export const useCharacterStore = defineStore('character', {
         localStorage.clear()
         this.router.push('/login')
         this.isLogin = false
+
       } catch (error) {
-        console.log(error)
+        Swal.fire({
+          icon: "error",
+          title: `${err.response.data.message}`,
+        });
       }
     },
 

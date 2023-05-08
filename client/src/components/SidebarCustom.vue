@@ -1,6 +1,6 @@
 <script>
 import { mapActions, mapWritableState } from "pinia";
-import { useCharacterStore } from "../stores/character";
+import { useFacultyStore } from "../stores/faculty";
 
 export default {
   name: "Sidebar",
@@ -8,10 +8,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapWritableState(useCharacterStore, ["isLogin"]),
+    ...mapWritableState(useFacultyStore, ["isLogin"]),
   },
   methods: {
-    ...mapActions(useCharacterStore, ["logoutHandler"]),
+    ...mapActions(useFacultyStore, ["logoutHandler"]),
   },
   created() {
     if (localStorage.access_token) {
@@ -24,7 +24,6 @@ export default {
 
 <template>
   <div class="d-flex" id="wrapper">
-    <!-- Sidebar -->
     <div class="bg-dark border-right" id="sidebar-wrapper">
       <div class="sidebar-logo">
         <img
@@ -33,17 +32,11 @@ export default {
           alt="Logo"
           loading="lazy"
         />
-        <span class="sidebar-logo-text">Genshin Impeight</span>
+        <span class="sidebar-logo-text">Faculty Digital</span>
       </div>
       <div class="sidebar-menu">
         <router-link v-if="isLogin" to="/home" class="sidebar-menu-item"
           >Home</router-link
-        >
-        <router-link v-if="isLogin" to="/profile" class="sidebar-menu-item"
-          >Profile</router-link
-        >
-        <router-link v-if="isLogin" to="/favorite" class="sidebar-menu-item"
-          >Favorites</router-link
         >
         <router-link v-if="!isLogin" to="/register" class="sidebar-menu-item"
           >Register</router-link
@@ -59,15 +52,11 @@ export default {
         </li>
       </div>
     </div>
-    <!-- /#sidebar-wrapper -->
-
-    <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container-fluid">
         <router-view></router-view>
       </div>
     </div>
-    <!-- /#page-content-wrapper -->
   </div>
 </template>
 

@@ -13,9 +13,7 @@ class UserController {
                     email
                 }
             })
-            console.log(findUser.dataValues.email, "USER <<<<<<<<<<<<<<<<<<<,")
-            console.log(email," DATAASE <<<<<<<<<<<<<<<<<<<,")
-            if (findUser.dataValues.email == email) {
+            if (findUser) {
                 throw { name: `SequelizeUniqueConstraintError` }
             }
             const createUser = await User.create({ email, password})

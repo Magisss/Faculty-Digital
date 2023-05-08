@@ -1,6 +1,6 @@
 <script>
 import { mapActions } from "pinia";
-import { useCharacterStore } from "../stores/character";
+import { useFacultyStore } from "../stores/faculty";
 export default {
   data() {
     return {
@@ -12,37 +12,55 @@ export default {
   },
   computed: {},
   methods: {
-    ...mapActions(useCharacterStore, ["registerHandler"]),
+    ...mapActions(useFacultyStore, ["registerHandler"]),
   },
 };
 </script>
 
 
 <template>
-  <section class="text-center text-lg-start" id="register-section">
-    <!-- Jumbotron -->
-    <div class="container py-4">
-      <div class="row g-0 align-items-center">
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <div
-            class="card cascading-right"
-            style="
-              background: hsla(0, 0%, 100%, 0.55);
-              backdrop-filter: blur(30px);
-            "
+  <section class="background-radial-gradient overflow-hidden">
+    <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+      <div class="row gx-lg-5 align-items-center mb-5">
+        <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+          <h1
+            class="my-5 display-5 fw-bold ls-tight"
+            style="color: hsl(218, 81%, 95%)"
           >
-            <div class="card-body p-5 shadow-5 text-center">
-              <h2 class="fw-bold mb-5">Register Here</h2>
+            Sign up <br />
+            <span
+              style="
+                color: hsl(218, 81%, 75%);
+                display: block;
+                text-align: center;
+              "
+            >
+              Your Account
+            </span>
+          </h1>
+        </div>
+
+        <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+          <div
+            id="radius-shape-1"
+            class="position-absolute rounded-circle shadow-5-strong"
+          ></div>
+          <div
+            id="radius-shape-2"
+            class="position-absolute shadow-5-strong"
+          ></div>
+
+          <div class="card bg-glass">
+            <div class="card-body px-4 py-5 px-md-5">
               <form
                 id="register-form"
                 @submit.prevent="
                   registerHandler({
                     email,
-                    password
+                    password,
                   })
                 "
               >
-                <!-- Email input -->
                 <div class="form-outline mb-4">
                   <input
                     type="email"
@@ -55,7 +73,6 @@ export default {
                   >
                 </div>
 
-                <!-- Password input -->
                 <div class="form-outline mb-4">
                   <input
                     type="password"
@@ -68,46 +85,87 @@ export default {
                   >
                 </div>
 
-                <!-- Submit button -->
-                <button
-                  style="margin: 20px"
-                  type="submit"
-                  class="btn btn-primary btn-block mb-4"
-                >
+                <div class="form-check d-flex justify-content-center mb-4">
+                  <input
+                    class="form-check-input me-2"
+                    type="checkbox"
+                    value=""
+                    id="form2Example33"
+                    checked
+                  />
+                  <label class="form-check-label" for="form2Example33">
+                    Subscribe to our newsletter
+                  </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block mb-4">
                   Sign up
                 </button>
-                <router-link to="/home"
-                  ><button
-                    style="margin: 20px"
-                    type="click"
-                    class="btn btn-primary btn-block mb-4"
-                  >
-                    Cancel
-                  </button></router-link
-                >
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter"></i>
+                  </button>
+
+                  <button type="button" class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-github"></i>
+                  </button>
+                </div>
               </form>
             </div>
           </div>
         </div>
-
-        <div class="col-lg-6 mb-5 mb-lg-0">
-          <img :src="image" class="w-100 rounded-4 shadow-4" alt="" />
-        </div>
       </div>
     </div>
-    <!-- Jumbotron -->
   </section>
 </template>
 
 <style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-  section {
-    background-color: #fbfbfb;
-  }
+.background-radial-gradient {
+  background-color: hsl(218, 41%, 15%);
+  background-image: radial-gradient(
+      650px circle at 0% 0%,
+      hsl(218, 41%, 35%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1250px circle at 100% 100%,
+      hsl(218, 41%, 45%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    );
+}
+
+#radius-shape-1 {
+  height: 220px;
+  width: 220px;
+  top: -60px;
+  left: -130px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+#radius-shape-2 {
+  border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+  bottom: -60px;
+  right: -110px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(#44006b, #ad1fff);
+  overflow: hidden;
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
 }
 </style>

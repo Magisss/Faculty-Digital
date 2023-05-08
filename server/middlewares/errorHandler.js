@@ -1,5 +1,5 @@
 module.exports = (error, req, res, next) => {
-    console.log(error)
+    console.log(error,"error middleware<<<<<<<<<<<<<<<<<<<<<<<")
         let status
         let message
     
@@ -30,17 +30,9 @@ module.exports = (error, req, res, next) => {
                 status = 401
                 message = 'Invalid email/password'
                 break;
-            case 'Forbidden':
-                status = 403
-                message = 'You are not authorized'
-                break;
             case 'NotFound':
                 status = 404
                 message = 'Data not found!'
-                break;
-            case 'SequelizeForeignKeyConstraintError':
-                status = 404
-                message = 'Character not found'
                 break;
             default:
                 status = 500
