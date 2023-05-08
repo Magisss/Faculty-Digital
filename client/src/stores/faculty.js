@@ -12,8 +12,8 @@ export const useFacultyStore = defineStore('faculty', {
     isLogin: false,
     qr: '',
     loading: false,
-    baseUrl: "http://localhost:3000"
-    // baseUrl: "https://rubah-kebon-production-95a1.up.railway.app"
+    // baseUrl: "http://localhost:3000"
+    baseUrl: "https://faculty-digital-production.up.railway.app"
   }),
   getters: {
     getMonths: (state) => {

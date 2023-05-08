@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapState, mapWritableState } from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useFacultyStore } from "../stores/faculty";
 
 export default {
@@ -43,7 +43,7 @@ export default {
         this.options
       );
       chart.render();
-    }, 200);
+    }, 500);
   },
 };
 </script>
